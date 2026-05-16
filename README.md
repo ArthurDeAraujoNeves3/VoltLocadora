@@ -12,7 +12,7 @@ Sistema de locação de veículos desenvolvido em PHP puro para a disciplina de 
 | Natanael Marcelino | 20251130220 |
 | Gabriel Rodrigues Silva | 20251180338 |
 | David Watylla Tavares de Oliveira | 20251180322 |
-| Pedro Emanuel | — |
+| Pedro Emanuel Ribeiro dos Santos | 20251180362 |
 
 ---
 
