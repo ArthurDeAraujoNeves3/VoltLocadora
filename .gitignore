@@ -2,4 +2,4 @@
 .env*
 !.env.exam
 .claude/
-claude
+.claude
