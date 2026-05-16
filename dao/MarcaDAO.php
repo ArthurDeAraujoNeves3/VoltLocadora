@@ -45,4 +45,16 @@ class MarcaDAO {
         }
         return null;
     }
+
+    public function buscarPorNome($nome)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM marca WHERE nome = ?");
+        $stmt->execute([$nome]);
+        if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $obj = new Marca($row['nome'], $row['pais_origem']);
+            $obj->setId($row['id_marca']);
+            return $obj;
+        }
+        return null;
+    }
 }

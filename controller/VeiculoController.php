@@ -1,44 +1,128 @@
 <?php
+
 require_once 'model/Veiculo.php';
 require_once 'dao/VeiculoDAO.php';
 require_once 'dao/LocacaoDAO.php';
 
-class VeiculoController {
-    public function salvar($idCategoria, $idMarca, $modelo, $anoFabricacao, $anoModelo, $placa, $chassi, $cor, $valorDiaria, $status, $quilometragem, $combustivel, $numPortas, $capacidadePassageiros) {
-        $obj = new Veiculo($idCategoria, $idMarca, $modelo, $anoFabricacao, $anoModelo, $placa, $chassi, $cor, $valorDiaria, $status, $quilometragem, $combustivel, $numPortas, $capacidadePassageiros);
-        $dao = new VeiculoDAO();
-        $dao->salvar($obj);
+class VeiculoController
+{
+
+    private $dao;
+    private $locacaoDao;
+
+    public function __construct($dao = null, $locacaoDao = null)
+    {
+        $this->dao = $dao ?? new VeiculoDAO();
+        $this->locacaoDao = $locacaoDao ?? new LocacaoDAO();
     }
 
-    public function listar() {
-        $dao = new VeiculoDAO();
-        return $dao->listar();
+    public function salvar(
+        $idCategoria,
+        $idMarca,
+        $modelo,
+        $anoFabricacao,
+        $anoModelo,
+        $placa,
+        $chassi,
+        $cor,
+        $valorDiaria,
+        $status,
+        $quilometragem,
+        $combustivel,
+        $numPortas,
+        $capacidadePassageiros
+    ) {
+
+        $obj = new Veiculo(
+            $idCategoria,
+            $idMarca,
+            $modelo,
+            $anoFabricacao,
+            $anoModelo,
+            $placa,
+            $chassi,
+            $cor,
+            $valorDiaria,
+            $status,
+            $quilometragem,
+            $combustivel,
+            $numPortas,
+            $capacidadePassageiros
+        );
+
+        $this->dao->salvar($obj);
     }
 
-    public function atualizar($id, $idCategoria, $idMarca, $modelo, $anoFabricacao, $anoModelo, $placa, $chassi, $cor, $valorDiaria, $status, $quilometragem, $combustivel, $numPortas, $capacidadePassageiros) {
-        // Impede alterar status de veículo com locação aberta para algo diferente de 'locado'
-        $locacaoDao = new LocacaoDAO();
-        if ($locacaoDao->veiculoPossuiLocacaoAberta($id) && $status !== 'locado') {
-            throw new RuntimeException('Este veículo possui uma locação em aberto e não pode ter o status alterado. Encerre ou cancele a locação primeiro.');
+    public function listar()
+    {
+        return $this->dao->listar();
+    }
+
+    public function atualizar(
+        $id,
+        $idCategoria,
+        $idMarca,
+        $modelo,
+        $anoFabricacao,
+        $anoModelo,
+        $placa,
+        $chassi,
+        $cor,
+        $valorDiaria,
+        $status,
+        $quilometragem,
+        $combustivel,
+        $numPortas,
+        $capacidadePassageiros
+    ) {
+
+        if (
+            $this->locacaoDao->veiculoPossuiLocacaoAberta($id) &&
+            $status !== 'locado'
+        ) {
+
+            throw new RuntimeException(
+                'Este veículo possui uma locação em aberto e não pode ter o status alterado.'
+            );
         }
 
-        $obj = new Veiculo($idCategoria, $idMarca, $modelo, $anoFabricacao, $anoModelo, $placa, $chassi, $cor, $valorDiaria, $status, $quilometragem, $combustivel, $numPortas, $capacidadePassageiros);
+        $obj = new Veiculo(
+            $idCategoria,
+            $idMarca,
+            $modelo,
+            $anoFabricacao,
+            $anoModelo,
+            $placa,
+            $chassi,
+            $cor,
+            $valorDiaria,
+            $status,
+            $quilometragem,
+            $combustivel,
+            $numPortas,
+            $capacidadePassageiros
+        );
+
         $obj->setId($id);
-        $dao = new VeiculoDAO();
-        $dao->atualizar($obj);
+
+        $this->dao->atualizar($obj);
     }
 
-    public function deletar($id) {
-        $locacaoDao = new LocacaoDAO();
-        if ($locacaoDao->veiculoPossuiLocacaoAberta($id)) {
-            throw new RuntimeException('Não é possível excluir: este veículo possui uma locação em aberto.');
+    public function deletar($id)
+    {
+
+        if ($this->locacaoDao->veiculoPossuiLocacaoAberta($id)) {
+
+            throw new RuntimeException(
+                'Não é possível excluir: este veículo possui uma locação em aberto.'
+            );
         }
-        $dao = new VeiculoDAO();
-        $dao->deletar($id);
+
+        $this->dao->deletar($id);
     }
 
-    public function buscarPorId($id) {
-        $dao = new VeiculoDAO();
-        return $dao->buscarPorId($id);
+    public function buscarPorId($id)
+    {
+        return $this->dao->buscarPorId($id);
     }
 }

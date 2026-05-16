@@ -1,33 +1,56 @@
 <?php
+
 require_once 'model/Categoria.php';
 require_once 'dao/CategoriaDAO.php';
 
-class CategoriaController {
-    public function salvar($nome, $descricao, $codigo) {
-        $obj = new Categoria($nome, $descricao, $codigo);
-        $dao = new CategoriaDAO();
-        $dao->salvar($obj);
+class CategoriaController
+{
+
+    private $dao;
+
+    public function __construct($dao = null)
+    {
+        $this->dao = $dao ?? new CategoriaDAO();
     }
 
-    public function listar() {
-        $dao = new CategoriaDAO();
-        return $dao->listar();
+    public function salvar($nome, $descricao, $codigo)
+    {
+
+        $obj = new Categoria(
+            $nome,
+            $descricao,
+            $codigo
+        );
+
+        $this->dao->salvar($obj);
     }
 
-    public function atualizar($id, $nome, $descricao, $codigo) {
-        $obj = new Categoria($nome, $descricao, $codigo);
+    public function listar()
+    {
+        return $this->dao->listar();
+    }
+
+    public function atualizar($id, $nome, $descricao, $codigo)
+    {
+
+        $obj = new Categoria(
+            $nome,
+            $descricao,
+            $codigo
+        );
+
         $obj->setId($id);
-        $dao = new CategoriaDAO();
-        $dao->atualizar($obj);
+
+        $this->dao->atualizar($obj);
     }
 
-    public function deletar($id) {
-        $dao = new CategoriaDAO();
-        $dao->deletar($id);
+    public function deletar($id)
+    {
+        $this->dao->deletar($id);
     }
 
-    public function buscarPorId($id) {
-        $dao = new CategoriaDAO();
-        return $dao->buscarPorId($id);
+    public function buscarPorId($id)
+    {
+        return $this->dao->buscarPorId($id);
     }
 }

@@ -12,7 +12,7 @@ Sistema de locação de veículos desenvolvido em PHP puro para a disciplina de 
 | Natanael Marcelino | 20251130220 |
 | Gabriel Rodrigues Silva | 20251180338 |
 | David Watylla Tavares de Oliveira | 20251180322 |
-| Pedro Emanuel | — |
+| Pedro Emanuel Ribeiro dos Santos | 20251180362 |
 
 ---
 
@@ -34,6 +34,9 @@ cp .env.example .env
 
 # 3. Suba os contêineres (primeira vez: build + init do banco)
 docker compose up -d --build
+
+# 4.(opcional) Roda testes unitários do sistema
+./vendor/bin/phpunit --testdox
 ```
 
 Acesse em: [http://localhost:80](http://localhost:80)
@@ -67,6 +70,7 @@ O projeto segue o padrão **MVC com camada DAO** em PHP puro, sem frameworks.
 /
 ├── config/                → Conexão PDO (Singleton) e helpers globais
 ├── model/                 → Entidades (atributos + getters/setters)
+├── tests/                 → Todos os testes unitários do sistema
 ├── dao/                   → Acesso ao banco (SQL via PDO prepared statements)
 ├── controller/            → Lógica de negócio (orquestra model + dao)
 ├── view/                  → Templates HTML com PHP mínimo

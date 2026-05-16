@@ -1,10 +1,19 @@
+# Dependências Composer
+/vendor/
+
 # Variáveis de ambiente
 .env
 .env.local
 
-# Claude Code
-.claude/
-CLAUDE.md
+# Logs
+*.log
+
+# PHPUnit
+.phpunit.result.cache
+coverage/
+
+# Xdebug
+xdebug.log
 
 # Sistema operacional
 .DS_Store
@@ -18,3 +27,17 @@ Thumbs.db
 
 # Docker volumes locais
 mysql_data/
+
+# Arquivos temporários
+tmp/
+temp/
+
+# Cache
+cache/
+
+# Node (caso use frontend futuramente)
+node_modules/
+
+# Build frontend
+dist/
+build/
