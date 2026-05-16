@@ -1,0 +1,10 @@
+:root {
+    --color-primary: #FFB22C;
+    --color-title: #000000;
+    --color-subtitle: #1A2130;
+    --color-text: #313647;
+
+    --color-bg: #FFF;
+    --color-border: #F5F7F8;
+    --duration: 0.2s;
+}
