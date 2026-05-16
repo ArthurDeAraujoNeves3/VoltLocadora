@@ -49,6 +49,12 @@ class LocacaoDAO {
         return (int)$stmt->fetchColumn() > 0;
     }
 
+    public function veiculoPossuiLocacaoAbertaExceto($idVeiculo, $idLocacao) {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM locacao WHERE id_veiculo = ? AND status = 'aberta' AND id_locacao != ?");
+        $stmt->execute([$idVeiculo, $idLocacao]);
+        return (int)$stmt->fetchColumn() > 0;
+    }
+
     private function hidratarObjeto($row) {
         $obj = new Locacao($row['id_cliente'], $row['id_veiculo'], $row['id_funcionario'], $row['id_agencia_retirada'], $row['id_agencia_devolucao'], $row['data_retirada'], $row['data_devolucao_prevista'], $row['data_devolucao_real'], $row['valor_diaria'], $row['total_dias'], $row['valor_total'], $row['status'], $row['observacoes']);
         $obj->setId($row['id_locacao']);

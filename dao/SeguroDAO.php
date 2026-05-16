@@ -9,7 +9,16 @@ class SeguroDAO {
         $this->conn = Conexao::getConn();
     }
 
+    public function locacaoPossuiSeguro($idLocacao) {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM seguro WHERE id_locacao = ?");
+        $stmt->execute([$idLocacao]);
+        return (int)$stmt->fetchColumn() > 0;
+    }
+
     public function salvar(Seguro $obj) {
+        if ($this->locacaoPossuiSeguro($obj->getIdLocacao())) {
+            throw new RuntimeException('Esta locação já possui um seguro cadastrado. Cada locação admite apenas um seguro.');
+        }
         $stmt = $this->conn->prepare("INSERT INTO seguro (id_locacao, tipo, cobertura, valor_franquia, valor_diaria, apolice) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([$obj->getIdLocacao(), $obj->getTipo(), $obj->getCobertura(), $obj->getValorFranquia(), $obj->getValorDiaria(), $obj->getApolice()]);
     }
