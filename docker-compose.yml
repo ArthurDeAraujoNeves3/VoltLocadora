@@ -1,23 +1,35 @@
 services:
   www:
-    image: php:apache
+    build: .
     volumes:
       - "./:/var/www/html"
     ports:
       - 80:80
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: topcar
+      MYSQL_USERNAME: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
 
   mysql:
     image: mysql:8.0
     restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --skip-character-set-client-handshake
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: topcar
       MYSQL_USER: ${MYSQL_USERNAME}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_RANDOM_ROOT_PASSWORD}
     ports:
       - 3307:3306
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./locadora_veiculos.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql.cnf:/etc/mysql/conf.d/charset.cnf:ro
 
 volumes:
   mysql_data:
