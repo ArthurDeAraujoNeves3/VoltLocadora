@@ -13,6 +13,7 @@ Sistema de locação de veículos desenvolvido em PHP puro para a disciplina de 
 | Gabriel Rodrigues Silva | 20251180338 |
 | David Watylla Tavares de Oliveira | 20251180322 |
 | Pedro Emanuel Ribeiro dos Santos | 20251180362 |
+|Thomás Dawid Sobreira de Macedo | 20251130210 |
 
 ---
 
