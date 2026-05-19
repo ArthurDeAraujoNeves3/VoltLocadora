@@ -8,18 +8,20 @@
     <h5 class="card-title"><?= isset($objEdit) ? 'Editar Marca' : 'Nova Marca' ?></h5>
   </div>
   <div class="card-body-pad">
-    <form method="post" action="index.php?page=marca">
+    <form method="post" action="index.php?page=marca" id="frmMarca">
       <input type="hidden" name="id" value="<?= isset($objEdit) ? $objEdit->getId() : '' ?>">
       <div class="row g-3">
         <div class="col-md-6">
           <label class="form-label">Nome *</label>
           <input type="text" name="nome" class="form-control" required
                  value="<?= isset($objEdit) ? h($objEdit->getNome()) : '' ?>">
+          <div class="invalid-feedback">Nome é obrigatório.</div>
         </div>
         <div class="col-md-6">
           <label class="form-label">País de Origem</label>
           <input type="text" name="pais_origem" class="form-control"
                  value="<?= isset($objEdit) ? h($objEdit->getPaisOrigem()) : '' ?>">
+          <div class="invalid-feedback">País de origem máx. 100 caracteres.</div>
         </div>
       </div>
       <div class="d-flex gap-2 mt-4">

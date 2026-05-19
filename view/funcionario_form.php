@@ -8,20 +8,23 @@
     <h5 class="card-title"><?= isset($objEdit) ? 'Editar Funcionário' : 'Novo Funcionário' ?></h5>
   </div>
   <div class="card-body-pad">
-    <form method="post" action="index.php?page=funcionario">
+    <form method="post" action="index.php?page=funcionario" id="frmFuncionario">
       <input type="hidden" name="id" value="<?= isset($objEdit) ? $objEdit->getId() : '' ?>">
       <div class="row g-3">
         <div class="col-md-6">
           <label class="form-label">Nome *</label>
           <input type="text" name="nome" class="form-control" required value="<?= isset($objEdit) ? h($objEdit->getNome()) : '' ?>">
+          <div class="invalid-feedback">Nome é obrigatório.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">CPF *</label>
           <input type="text" name="cpf" class="form-control" required maxlength="14" value="<?= isset($objEdit) ? h($objEdit->getCpf()) : '' ?>">
+          <div class="invalid-feedback">CPF inválido.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Cargo</label>
           <input type="text" name="cargo" class="form-control" value="<?= isset($objEdit) ? h($objEdit->getCargo()) : '' ?>">
+          <div class="invalid-feedback">Cargo máx. 80 caracteres.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Agência *</label>
@@ -33,18 +36,22 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione a agência.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">E-mail</label>
           <input type="email" name="email" class="form-control" value="<?= isset($objEdit) ? h($objEdit->getEmail()) : '' ?>">
+          <div class="invalid-feedback">E-mail inválido.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Telefone</label>
           <input type="text" name="telefone" class="form-control" value="<?= isset($objEdit) ? h($objEdit->getTelefone()) : '' ?>">
+          <div class="invalid-feedback">Telefone inválido. Mínimo 10 dígitos.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Data Admissão</label>
           <input type="date" name="data_admissao" class="form-control" value="<?= isset($objEdit) ? h($objEdit->getDataAdmissao()) : '' ?>">
+          <div class="invalid-feedback">Data de admissão inválida.</div>
         </div>
         <div class="col-md-4 d-flex align-items-end pb-1">
           <div class="form-check">

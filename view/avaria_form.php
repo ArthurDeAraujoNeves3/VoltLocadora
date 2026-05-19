@@ -8,7 +8,7 @@
     <h5 class="card-title"><?= isset($objEdit) ? 'Editar Avaria' : 'Nova Avaria' ?></h5>
   </div>
   <div class="card-body-pad">
-    <form method="post" action="index.php?page=avaria">
+    <form method="post" action="index.php?page=avaria" id="frmAvaria">
       <input type="hidden" name="id" value="<?= isset($objEdit) ? $objEdit->getId() : '' ?>">
       <div class="row g-3">
         <div class="col-md-4">
@@ -21,6 +21,7 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione a locação.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Funcionário Responsável *</label>
@@ -32,6 +33,7 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione o funcionário.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Status da Avaria</label>
@@ -40,12 +42,14 @@
               <option value="<?= $val ?>" <?= (isset($objEdit) && $objEdit->getStatus() === $val) ? 'selected' : '' ?>><?= $lbl ?></option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Status inválido.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Valor do Reparo</label>
           <div class="input-group">
             <span class="input-group-text" style="background:#f8fafc;border:1.5px solid var(--border);border-right:none;font-size:.8rem">R$</span>
             <input type="number" step="0.01" name="valor_reparo" class="form-control" style="border-left:none" value="<?= isset($objEdit) ? $objEdit->getValorReparo() : 0 ?>">
+            <div class="invalid-feedback">Valor do reparo não pode ser negativo.</div>
           </div>
         </div>
         <div class="col-md-4 d-flex align-items-end pb-1">
@@ -58,6 +62,7 @@
         <div class="col-md-12">
           <label class="form-label">Descrição da Avaria *</label>
           <textarea name="descricao" class="form-control" rows="3" required><?= isset($objEdit) ? h($objEdit->getDescricao()) : '' ?></textarea>
+          <div class="invalid-feedback">Descrição é obrigatória.</div>
         </div>
       </div>
       <div class="d-flex gap-2 mt-4">

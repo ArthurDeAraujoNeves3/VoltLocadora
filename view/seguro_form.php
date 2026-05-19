@@ -8,7 +8,7 @@
     <h5 class="card-title"><?= isset($objEdit) ? 'Editar Seguro' : 'Novo Seguro' ?></h5>
   </div>
   <div class="card-body-pad">
-    <form method="post" action="index.php?page=seguro">
+    <form method="post" action="index.php?page=seguro" id="frmSeguro">
       <input type="hidden" name="id" value="<?= isset($objEdit) ? $objEdit->getId() : '' ?>">
       <div class="row g-3">
         <div class="col-md-4">
@@ -21,20 +21,24 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione a locação.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Tipo de Seguro *</label>
           <input type="text" name="tipo" class="form-control" required maxlength="80" value="<?= isset($objEdit) ? h($objEdit->getTipo()) : '' ?>">
+          <div class="invalid-feedback">Tipo de seguro é obrigatório (máx. 80 caracteres).</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Nº Apólice</label>
           <input type="text" name="apolice" class="form-control" maxlength="50" value="<?= isset($objEdit) ? h($objEdit->getApolice()) : '' ?>">
+          <div class="invalid-feedback">Nº de apólice máx. 50 caracteres.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Valor da Franquia</label>
           <div class="input-group">
             <span class="input-group-text" style="background:#f8fafc;border:1.5px solid var(--border);border-right:none;font-size:.8rem">R$</span>
             <input type="number" step="0.01" name="valor_franquia" class="form-control" style="border-left:none" value="<?= isset($objEdit) ? $objEdit->getValorFranquia() : 0 ?>">
+            <div class="invalid-feedback">Valor da franquia não pode ser negativo.</div>
           </div>
         </div>
         <div class="col-md-3">
@@ -42,11 +46,13 @@
           <div class="input-group">
             <span class="input-group-text" style="background:#f8fafc;border:1.5px solid var(--border);border-right:none;font-size:.8rem">R$</span>
             <input type="number" step="0.01" name="valor_diaria" class="form-control" style="border-left:none" value="<?= isset($objEdit) ? $objEdit->getValorDiaria() : 0 ?>">
+            <div class="invalid-feedback">Valor da diária não pode ser negativo.</div>
           </div>
         </div>
         <div class="col-md-12">
           <label class="form-label">Cobertura</label>
           <textarea name="cobertura" class="form-control" rows="2"><?= isset($objEdit) ? h($objEdit->getCobertura()) : '' ?></textarea>
+          <div class="invalid-feedback">Cobertura inválida.</div>
         </div>
       </div>
       <div class="d-flex gap-2 mt-4">

@@ -8,40 +8,48 @@
     <h5 class="card-title"><?= isset($objEdit) ? 'Editar Agência' : 'Nova Agência' ?></h5>
   </div>
   <div class="card-body-pad">
-    <form method="post" action="index.php?page=agencia">
+    <form method="post" action="index.php?page=agencia" id="frmAgencia">
       <input type="hidden" name="id" value="<?= isset($objEdit) ? $objEdit->getId() : '' ?>">
       <div class="row g-3">
         <div class="col-md-6">
           <label class="form-label">Nome *</label>
           <input type="text" name="nome" class="form-control" required value="<?= isset($objEdit) ? h($objEdit->getNome()) : '' ?>">
+          <div class="invalid-feedback">Nome é obrigatório.</div>
         </div>
         <div class="col-md-6">
           <label class="form-label">CNPJ *</label>
           <input type="text" name="cnpj" class="form-control" required maxlength="18" value="<?= isset($objEdit) ? h($objEdit->getCnpj()) : '' ?>">
+          <div class="invalid-feedback">CNPJ inválido. Use XX.XXX.XXX/XXXX-XX.</div>
         </div>
         <div class="col-md-8">
           <label class="form-label">Endereço</label>
           <input type="text" name="endereco" class="form-control" value="<?= isset($objEdit) ? h($objEdit->getEndereco()) : '' ?>">
+          <div class="invalid-feedback">Endereço máx. 255 caracteres.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">CEP</label>
           <input type="text" name="cep" class="form-control" maxlength="9" value="<?= isset($objEdit) ? h($objEdit->getCep()) : '' ?>">
+          <div class="invalid-feedback">CEP inválido. Use XXXXX-XXX.</div>
         </div>
         <div class="col-md-5">
           <label class="form-label">Cidade</label>
           <input type="text" name="cidade" class="form-control" value="<?= isset($objEdit) ? h($objEdit->getCidade()) : '' ?>">
+          <div class="invalid-feedback">Cidade máx. 100 caracteres.</div>
         </div>
         <div class="col-md-2">
           <label class="form-label">UF</label>
           <input type="text" name="estado" class="form-control" maxlength="2" value="<?= isset($objEdit) ? h($objEdit->getEstado()) : '' ?>">
+          <div class="invalid-feedback">UF deve ter 2 letras.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Telefone</label>
           <input type="text" name="telefone" class="form-control" value="<?= isset($objEdit) ? h($objEdit->getTelefone()) : '' ?>">
+          <div class="invalid-feedback">Telefone inválido. Mínimo 10 dígitos.</div>
         </div>
         <div class="col-md-5">
           <label class="form-label">E-mail</label>
           <input type="email" name="email" class="form-control" value="<?= isset($objEdit) ? h($objEdit->getEmail()) : '' ?>">
+          <div class="invalid-feedback">E-mail inválido.</div>
         </div>
         <div class="col-md-3 d-flex align-items-end pb-1">
           <div class="form-check">

@@ -8,12 +8,13 @@
     <h5 class="card-title"><?= isset($objEdit) ? 'Editar Veículo' : 'Novo Veículo' ?></h5>
   </div>
   <div class="card-body-pad">
-    <form method="post" action="index.php?page=veiculo">
+    <form method="post" action="index.php?page=veiculo" id="frmVeiculo">
       <input type="hidden" name="id" value="<?= isset($objEdit) ? $objEdit->getId() : '' ?>">
       <div class="row g-3">
         <div class="col-md-4">
           <label class="form-label">Modelo *</label>
           <input type="text" name="modelo" class="form-control" required value="<?= isset($objEdit) ? h($objEdit->getModelo()) : '' ?>">
+          <div class="invalid-feedback">Modelo é obrigatório.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Marca *</label>
@@ -25,6 +26,7 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione a marca.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Categoria *</label>
@@ -36,32 +38,39 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione a categoria.</div>
         </div>
         <div class="col-md-2">
           <label class="form-label">Ano Fab. *</label>
           <input type="number" name="ano_fabricacao" class="form-control" required min="1950" max="2100" value="<?= isset($objEdit) ? $objEdit->getAnoFabricacao() : '' ?>">
+          <div class="invalid-feedback">Ano de fabricação inválido.</div>
         </div>
         <div class="col-md-2">
           <label class="form-label">Ano Modelo *</label>
           <input type="number" name="ano_modelo" class="form-control" required min="1950" max="2100" value="<?= isset($objEdit) ? $objEdit->getAnoModelo() : '' ?>">
+          <div class="invalid-feedback">Ano do modelo inválido.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Placa *</label>
           <input type="text" name="placa" class="form-control" required maxlength="10" value="<?= isset($objEdit) ? h($objEdit->getPlaca()) : '' ?>">
+          <div class="invalid-feedback">Placa inválida. Ex: ABC1234 ou ABC1D23.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Chassi *</label>
           <input type="text" name="chassi" class="form-control" required maxlength="17" value="<?= isset($objEdit) ? h($objEdit->getChassi()) : '' ?>">
+          <div class="invalid-feedback">Chassi deve ter exatamente 17 caracteres.</div>
         </div>
         <div class="col-md-2">
           <label class="form-label">Cor</label>
           <input type="text" name="cor" class="form-control" value="<?= isset($objEdit) ? h($objEdit->getCor()) : '' ?>">
+          <div class="invalid-feedback">Cor máx. 50 caracteres.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Valor Diária *</label>
           <div class="input-group">
             <span class="input-group-text" style="background:#f8fafc;border:1.5px solid var(--border);border-right:none;font-size:.8rem">R$</span>
             <input type="number" step="0.01" name="valor_diaria" class="form-control" required style="border-left:none" value="<?= isset($objEdit) ? $objEdit->getValorDiaria() : '' ?>">
+            <div class="invalid-feedback">Valor da diária deve ser maior que zero.</div>
           </div>
         </div>
         <div class="col-md-3">
@@ -71,10 +80,12 @@
               <option value="<?= $val ?>" <?= (isset($objEdit) && $objEdit->getStatus() === $val) ? 'selected' : '' ?>><?= $lbl ?></option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Status inválido.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Quilometragem</label>
           <input type="number" name="quilometragem" class="form-control" value="<?= isset($objEdit) ? $objEdit->getQuilometragem() : 0 ?>">
+          <div class="invalid-feedback">Quilometragem não pode ser negativa.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Combustível</label>
@@ -83,14 +94,17 @@
               <option value="<?= $val ?>" <?= (isset($objEdit) && $objEdit->getCombustivel() === $val) ? 'selected' : '' ?>><?= $lbl ?></option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Combustível inválido.</div>
         </div>
         <div class="col-md-2">
           <label class="form-label">Portas</label>
           <input type="number" name="num_portas" class="form-control" min="2" max="6" value="<?= isset($objEdit) ? $objEdit->getNumPortas() : 4 ?>">
+          <div class="invalid-feedback">Número de portas deve ser entre 2 e 6.</div>
         </div>
         <div class="col-md-2">
           <label class="form-label">Passageiros</label>
           <input type="number" name="capacidade_passageiros" class="form-control" min="1" max="20" value="<?= isset($objEdit) ? $objEdit->getCapacidadePassageiros() : 5 ?>">
+          <div class="invalid-feedback">Capacidade deve ser entre 1 e 20.</div>
         </div>
       </div>
       <div class="d-flex gap-2 mt-4">

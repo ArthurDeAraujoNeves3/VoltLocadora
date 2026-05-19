@@ -25,7 +25,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
       MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_RANDOM_ROOT_PASSWORD}
     ports:
-      - 3307:3306
+      - 3306:3306
     volumes:
       - mysql_data:/var/lib/mysql
       - ./locadora_veiculos.sql:/docker-entrypoint-initdb.d/init.sql

@@ -2,19 +2,23 @@
 require_once 'config/Conexao.php';
 require_once 'model/Marca.php';
 
-class MarcaDAO {
+class MarcaDAO
+{
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->conn = Conexao::getConn();
     }
 
-    public function salvar(Marca $obj) {
+    public function salvar(Marca $obj)
+    {
         $stmt = $this->conn->prepare("INSERT INTO marca (nome, pais_origem) VALUES (?, ?)");
         $stmt->execute([$obj->getNome(), $obj->getPaisOrigem()]);
     }
 
-    public function listar() {
+    public function listar()
+    {
         $stmt = $this->conn->query("SELECT * FROM marca ORDER BY nome");
         $lista = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -25,17 +29,20 @@ class MarcaDAO {
         return $lista;
     }
 
-    public function atualizar(Marca $obj) {
+    public function atualizar(Marca $obj)
+    {
         $stmt = $this->conn->prepare("UPDATE marca SET nome = ?, pais_origem = ? WHERE id_marca = ?");
         $stmt->execute([$obj->getNome(), $obj->getPaisOrigem(), $obj->getId()]);
     }
 
-    public function deletar($id) {
+    public function deletar($id)
+    {
         $stmt = $this->conn->prepare("DELETE FROM marca WHERE id_marca = ?");
         $stmt->execute([$id]);
     }
 
-    public function buscarPorId($id) {
+    public function buscarPorId($id)
+    {
         $stmt = $this->conn->prepare("SELECT * FROM marca WHERE id_marca = ?");
         $stmt->execute([$id]);
         if ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

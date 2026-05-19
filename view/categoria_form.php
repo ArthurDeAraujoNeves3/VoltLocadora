@@ -8,22 +8,25 @@
     <h5 class="card-title"><?= isset($objEdit) ? 'Editar Categoria' : 'Nova Categoria' ?></h5>
   </div>
   <div class="card-body-pad">
-    <form method="post" action="index.php?page=categoria">
+    <form method="post" action="index.php?page=categoria" id="frmCategoria">
       <input type="hidden" name="id" value="<?= isset($objEdit) ? $objEdit->getId() : '' ?>">
       <div class="row g-3">
         <div class="col-md-5">
           <label class="form-label">Nome *</label>
           <input type="text" name="nome" class="form-control" required
                  value="<?= isset($objEdit) ? h($objEdit->getNome()) : '' ?>">
+          <div class="invalid-feedback">Nome é obrigatório.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Código *</label>
           <input type="text" name="codigo" class="form-control" required maxlength="20"
                  value="<?= isset($objEdit) ? h($objEdit->getCodigo()) : '' ?>">
+          <div class="invalid-feedback">Código é obrigatório (máx. 20 caracteres).</div>
         </div>
         <div class="col-md-12">
           <label class="form-label">Descrição</label>
           <textarea name="descricao" class="form-control" rows="2"><?= isset($objEdit) ? h($objEdit->getDescricao()) : '' ?></textarea>
+          <div class="invalid-feedback">Descrição inválida.</div>
         </div>
       </div>
       <div class="d-flex gap-2 mt-4">

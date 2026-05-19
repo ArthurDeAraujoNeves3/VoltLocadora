@@ -22,12 +22,14 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione o cliente.</div>
         </div>
 
         <div class="col-md-4">
           <label class="form-label">Veículo *</label>
           <select name="id_veiculo" class="form-select" required id="selVeiculo">
             <option value="">Selecione o veículo...</option>
+
             <?php
             $statusLabels = ['disponivel'=>'✓ Disponível','locado'=>'✗ Locado','manutencao'=>'✗ Manutenção','inativo'=>'✗ Inativo'];
             foreach ($veiculos as $v):
@@ -44,6 +46,7 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione o veículo.</div>
           <div class="form-text" style="font-size:.72rem;color:var(--subtle)">Veículos indisponíveis estão desabilitados.</div>
         </div>
 
@@ -57,6 +60,7 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione o funcionário.</div>
         </div>
 
         <div class="col-md-4">
@@ -69,6 +73,7 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione a agência de retirada.</div>
         </div>
 
         <div class="col-md-4">
@@ -81,6 +86,7 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione a agência de devolução.</div>
         </div>
 
         <div class="col-md-4">
@@ -90,6 +96,7 @@
               <option value="<?= $val ?>" <?= (isset($objEdit) && $objEdit->getStatus() === $val) ? 'selected' : '' ?>><?= $lbl ?></option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Status inválido.</div>
         </div>
 
         <div class="col-md-3">
@@ -97,6 +104,7 @@
           <input type="date" name="data_retirada" id="dataRet" class="form-control" required
                  value="<?= isset($objEdit) ? h($objEdit->getDataRetirada()) : '' ?>"
                  onchange="calcTotal()">
+          <div class="invalid-feedback">Data de retirada é obrigatória.</div>
         </div>
 
         <div class="col-md-3">
@@ -104,12 +112,14 @@
           <input type="date" name="data_devolucao_prevista" id="dataDev" class="form-control" required
                  value="<?= isset($objEdit) ? h($objEdit->getDataDevolucaoPrevista()) : '' ?>"
                  onchange="calcTotal()">
+          <div class="invalid-feedback">Devolução deve ser igual ou posterior à retirada.</div>
         </div>
 
         <div class="col-md-3">
           <label class="form-label">Devolução Real</label>
           <input type="date" name="data_devolucao_real" class="form-control"
                  value="<?= isset($objEdit) ? h($objEdit->getDataDevolucaoReal()) : '' ?>">
+          <div class="invalid-feedback">Data de devolução real inválida.</div>
         </div>
 
         <div class="col-md-3">
@@ -120,6 +130,7 @@
                    style="border-left:none"
                    value="<?= isset($objEdit) ? $objEdit->getValorDiaria() : '' ?>"
                    onchange="calcTotal()" oninput="calcTotal()">
+            <div class="invalid-feedback">Valor da diária deve ser maior que zero.</div>
           </div>
         </div>
 
@@ -143,6 +154,7 @@
         <div class="col-md-6">
           <label class="form-label">Observações</label>
           <textarea name="observacoes" class="form-control" rows="2"><?= isset($objEdit) ? h($objEdit->getObservacoes()) : '' ?></textarea>
+          <div class="invalid-feedback">Observações inválidas.</div>
         </div>
 
       </div>

@@ -452,6 +452,29 @@ code { font-size: .8rem; background: #f1f5f9; color: #475569; padding: .15rem .4
 select option[data-status]:not([data-status='disponivel']) { color: var(--muted); }
 select option[disabled] { color: #ccc !important; }
 
+/* ── VALIDATION ─────────────────────────────────────────────── */
+.form-control.is-invalid,
+.form-select.is-invalid {
+  border-color: var(--danger);
+  box-shadow: none;
+}
+.form-control.is-invalid:focus,
+.form-select.is-invalid:focus {
+  border-color: var(--danger);
+  box-shadow: 0 0 0 3px rgba(239,68,68,.15);
+}
+.invalid-feedback {
+  display: none;
+  font-size: .72rem;
+  color: var(--danger);
+  margin-top: .25rem;
+  font-weight: 500;
+}
+.is-invalid ~ .invalid-feedback,
+.input-group .is-invalid ~ .invalid-feedback {
+  display: block;
+}
+
 /* ── RESPONSIVE ─────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .volt-sidebar { display: none; }

@@ -8,7 +8,7 @@
     <h5 class="card-title"><?= isset($objEdit) ? 'Editar Manutenção' : 'Nova Manutenção' ?></h5>
   </div>
   <div class="card-body-pad">
-    <form method="post" action="index.php?page=manutencao">
+    <form method="post" action="index.php?page=manutencao" id="frmManutencao">
       <input type="hidden" name="id" value="<?= isset($objEdit) ? $objEdit->getId() : '' ?>">
       <div class="row g-3">
         <div class="col-md-4">
@@ -21,6 +21,7 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione o veículo.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Mecânico/Responsável *</label>
@@ -32,6 +33,7 @@
               </option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Selecione o responsável.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Tipo de Manutenção</label>
@@ -40,25 +42,30 @@
               <option value="<?= $val ?>" <?= (isset($objEdit) && $objEdit->getTipo() === $val) ? 'selected' : '' ?>><?= $lbl ?></option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Tipo inválido.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Data de Entrada *</label>
           <input type="date" name="data_entrada" class="form-control" required value="<?= isset($objEdit) ? h($objEdit->getDataEntrada()) : '' ?>">
+          <div class="invalid-feedback">Data de entrada é obrigatória.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Data de Saída</label>
           <input type="date" name="data_saida" class="form-control" value="<?= isset($objEdit) ? h($objEdit->getDataSaida()) : '' ?>">
+          <div class="invalid-feedback">Data de saída deve ser posterior à data de entrada.</div>
         </div>
         <div class="col-md-3">
           <label class="form-label">Custo (R$)</label>
           <div class="input-group">
             <span class="input-group-text" style="background:#f8fafc;border:1.5px solid var(--border);border-right:none;font-size:.8rem">R$</span>
             <input type="number" step="0.01" name="custo" class="form-control" style="border-left:none" value="<?= isset($objEdit) ? $objEdit->getCusto() : 0 ?>">
+            <div class="invalid-feedback">Custo não pode ser negativo.</div>
           </div>
         </div>
         <div class="col-md-3">
           <label class="form-label">KM na Entrada *</label>
           <input type="number" name="quilometragem_entrada" class="form-control" required value="<?= isset($objEdit) ? $objEdit->getQuilometragemEntrada() : 0 ?>">
+          <div class="invalid-feedback">Quilometragem é obrigatória e não pode ser negativa.</div>
         </div>
         <div class="col-md-4">
           <label class="form-label">Status</label>
@@ -67,10 +74,12 @@
               <option value="<?= $val ?>" <?= (isset($objEdit) && $objEdit->getStatus() === $val) ? 'selected' : '' ?>><?= $lbl ?></option>
             <?php endforeach; ?>
           </select>
+          <div class="invalid-feedback">Status inválido.</div>
         </div>
         <div class="col-md-12">
           <label class="form-label">Descrição / Serviços Realizados</label>
           <textarea name="descricao" class="form-control" rows="2"><?= isset($objEdit) ? h($objEdit->getDescricao()) : '' ?></textarea>
+          <div class="invalid-feedback">Descrição inválida.</div>
         </div>
       </div>
       <div class="d-flex gap-2 mt-4">
